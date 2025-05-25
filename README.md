@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simulation for a flight booking app. The project aims to expose handling more advanced forms.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Written in Ruby Rails 8.0.2 and part of the Odin Project course: [Project: Flight Booker
+](https://www.theodinproject.com/lessons/ruby-on-rails-flight-booker)
