@@ -1,0 +1,32 @@
+<%= form_with model: Flight, method: :get do |f| %>
+  <div>
+      <%= f.label :departure_airport_id %>
+      <%= f.collection_select :departure_airport_id, Airport.order("code ASC"), :id, :code,
+        { :selected => params[:flight].present? ? params[:flight][:departure_airport_id] : Airport.order("code ASC").first.id } %>
+  </div>
+  <div>
+      <%= f.label :arrival_airport_id %>
+      <%= f.collection_select :arrival_airport_id, Airport.order("code ASC"), :id, :code,
+        { :selected => params[:flight].present? ? params[:flight][:arrival_airport_id] : Airport.order("code ASC").first.id } %>
+  </div>
+  <div>
+      <%= f.label :passengers %>
+      <%= f.select :passengers, [1, 2, 3, 4] %>
+  </div>
+  <div>
+      <%= f.label :departure, "Flight date" %>
+      <%= f.date_field :departure, min: Flight.minimum(:departure), max: Flight.maximum(:departure), required: true, value: Flight.minimum(:departure) %>
+  </div>
+  <%= f.submit "Search" %>
+<% end %>
+<br />
+
+<% if params[:flight].present? %>
+    <% @flights.each do |flight| %>
+        Departure Date: <%= flight.departure %><br />
+        Departure Airport: <%= Airport.find(flight.departure_airport_id).code %><br />
+        Arrival Date: <%= flight.arrival %><br />
+        Arrival Airport: <%= Airport.find(flight.arrival_airport_id).code %><br />
+        <br />
+    <% end %>
+<% end %>
