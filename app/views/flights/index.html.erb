@@ -22,11 +22,19 @@
 <br />
 
 <% if params[:flight].present? %>
-    <% @flights.each do |flight| %>
-        Departure Date: <%= flight.departure %><br />
-        Departure Airport: <%= Airport.find(flight.departure_airport_id).code %><br />
-        Arrival Date: <%= flight.arrival %><br />
-        Arrival Airport: <%= Airport.find(flight.arrival_airport_id).code %><br />
-        <br />
+    <%= form_with url: "/bookings/new", method: :get do |form| %>
+            <% @flights.each do |flight| %>
+                    <div>
+                        <%= form.radio_button :flight, flight.id %>
+                        <%= form.label "flight_#{flight.id}", "Flight No. #{ flight.id }"%><br />
+                        <%= form.label "flight_#{flight.id}", "Departure Date: #{ flight.departure }"%><br />
+                        <%= form.label "flight_#{flight.id}", "Departure Airport: #{ Airport.find(flight.departure_airport_id).code }"%><br />
+                        <%= form.label "flight_#{flight.id}", "Arrival Date: #{ flight.arrival }"%><br />
+                        <%= form.label "flight_#{flight.id}", "Arrival Airport: #{ Airport.find(flight.arrival_airport_id).code }"%>
+                        <%= hidden_field(:passengers, params[:flight][:passengers]) %>
+                    </div>
+                <br />
+            <% end %>
+        <%= form.submit "Create Booking" %>
     <% end %>
 <% end %>
