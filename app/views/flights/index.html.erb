@@ -21,7 +21,7 @@
 <% end %>
 <br />
 
-<% if params[:flight].present? %>
+<% if !@flights.blank? %>
     <%= form_with url: "/bookings/new", method: :get do |form| %>
             <% @flights.each do |flight| %>
                     <div>
@@ -37,4 +37,6 @@
             <% end %>
         <%= form.submit "Create Booking" %>
     <% end %>
+<% else %>
+    <h1>No result found</h1>
 <% end %>
