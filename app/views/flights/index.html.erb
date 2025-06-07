@@ -11,7 +11,7 @@
   </div>
   <div>
       <%= f.label :passengers %>
-      <%= f.select :passengers, [1, 2, 3, 4] %>
+      <%= f.select :passengers, [1, 2, 3, 4], { :selected => @total_passengers || 1 } %>
   </div>
   <div>
       <%= f.label :departure, "Flight date" %>
@@ -25,16 +25,16 @@
     <%= form_with url: "/bookings/new", method: :get do |form| %>
             <% @flights.each do |flight| %>
                     <div>
-                        <%= form.radio_button :flight, flight.id %>
+                        <%= form.radio_button :flight_id, flight.id %>
                         <%= form.label "flight_#{flight.id}", "Flight No. #{ flight.id }"%><br />
                         <%= form.label "flight_#{flight.id}", "Departure Date: #{ flight.departure }"%><br />
                         <%= form.label "flight_#{flight.id}", "Departure Airport: #{ Airport.find(flight.departure_airport_id).code }"%><br />
                         <%= form.label "flight_#{flight.id}", "Arrival Date: #{ flight.arrival }"%><br />
                         <%= form.label "flight_#{flight.id}", "Arrival Airport: #{ Airport.find(flight.arrival_airport_id).code }"%>
-                        <%= hidden_field(:passengers, params[:flight][:passengers]) %>
                     </div>
                 <br />
             <% end %>
+            <%= form.hidden_field(:passengers, :value => @total_passengers) %>
         <%= form.submit "Create Booking" %>
     <% end %>
 <% else %>

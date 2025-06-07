@@ -1,0 +1,21 @@
+<h1>FLIGHT INFORMATION</h1>
+<%= "Flight No. #{ @flight.id }"%><br />
+<%= "Departure Date: #{ @flight.departure }"%><br />
+<%= "Departure Airport: #{ Airport.find(@flight.departure_airport_id).code }"%><br />
+<%= "Arrival Date: #{ @flight.arrival }"%><br />
+<%= "Arrival Airport: #{ Airport.find(@flight.arrival_airport_id).code }"%>
+
+<h1>PASSENGERS INFORMATION</h1>
+<%= form_with model: @booking do |form| %>
+    <%= hidden_field_tag(:flight_id, @flight_id) %>
+    <%= form.fields_for :passengers do |passenger_form| %>
+        <%= passenger_form.label :name %>
+        <%= passenger_form.text_field :name %>
+
+        <%= passenger_form.label :email %>
+        <%= passenger_form.email_field :email %>
+        <br />
+    <% end %>
+
+    <%= form.submit %>
+<% end %>

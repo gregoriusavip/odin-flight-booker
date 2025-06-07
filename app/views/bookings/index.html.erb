@@ -1,0 +1,17 @@
+<h1>ALL BOOKINGS</h1>
+
+<% @bookings.each do |booking| %>
+    <% booking.flights.each do |flight| %>
+        <%= "Flight No. #{ flight.id }"%><br />
+        <%= "Departure Date: #{ flight.departure }"%><br />
+        <%= "Departure Airport: #{ Airport.find(flight.departure_airport_id).code }"%><br />
+        <%= "Arrival Date: #{ flight.arrival }"%><br />
+        <%= "Arrival Airport: #{ Airport.find(flight.arrival_airport_id).code }"%>
+    <% end %>
+    <br /><br />
+    <% booking.passengers.each do |passenger| %>
+        <%= "NAME: #{ passenger.name }" %>
+        <%= "EMAIL: #{ passenger.email }" %>
+    <% end %>
+    <br /><br />
+<% end %>
